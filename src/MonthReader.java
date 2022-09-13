@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class MonthReader {
-    FileReader reader = new FileReader();
+
     ArrayList<MonthlyReportRecord> linesOfMonth;
     ArrayList<Integer> expenses = new ArrayList<>();
     ArrayList<Integer> profits = new ArrayList<>();
@@ -13,7 +13,7 @@ public class MonthReader {
         File f = new File("./");
         System.out.println("cur dir: " + f.getAbsolutePath());
         for (int monthIndex = 1; monthIndex <= 3; monthIndex++) {
-            String content = reader.readFileContentsOrNull("C:\\Users\\Ольга\\dev\\java-sprint2-hw/resources/m.20210" + monthIndex + ".csv");
+            String content = f.getAbsolutePath() + "/resources/m.20210" + monthIndex + ".csv";
             String[] lines = content.split("\n");
             linesOfMonth = new ArrayList<>();
             for (int i = 1; i < lines.length; i++) {
@@ -36,16 +36,16 @@ public class MonthReader {
         if (totalMonth.isEmpty()) {
             System.out.println("Месячные отчеты ещё считаны");
         } else {
-            getMostItemName();
+            printMostExpenseAndMostProfiltItemName();
         }
     }
 
     void calculateTotalExpense() {
-        for (int monthIndex = 1; monthIndex <= 3; monthIndex++) {
+        for (int monthIndex : totalMonth.keySet()) {
             int totalExpense = 0;
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
                 if (totalMonth.get(monthIndex).get(i).isExpense) {
-                    totalExpense = totalExpense + totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
+                    totalExpense += totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                 }
             }
             expenses.add(totalExpense);
@@ -53,25 +53,25 @@ public class MonthReader {
     }
 
     void calculateTotalProfit() {
-        for (int monthIndex = 1; monthIndex <= 3; monthIndex++) {
+        for (int monthIndex : totalMonth.keySet()) {
             int totalProfit = 0;
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
                 if (totalMonth.get(monthIndex).get(i).isExpense) {
-                    totalProfit = totalProfit + totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
+                    totalProfit += totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                 }
             }
             profits.add(totalProfit);
         }
     }
 
-    void getMostItemName() {
-        for (int monthIndex = 1; monthIndex <= 3; monthIndex++) {
+    void printMostExpenseAndMostProfiltItemName() {
+        for (int monthIndex : totalMonth.keySet()) {
             int mostProfitItem = 0;
             String mostProfitItemName = "";
             int mostExpenseItem = 0;
             String mostExpenseItemName = "";
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
-                if (totalMonth.get(monthIndex).get(i).isExpense) {
+                if (!totalMonth.get(monthIndex).get(i).isExpense) {
                     int itemProfit = totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                     if (itemProfit > mostProfitItem) {
                         mostProfitItem = totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;

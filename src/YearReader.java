@@ -1,12 +1,14 @@
 
+import java.io.File;
 import java.util.ArrayList;
 public class YearReader {
     ArrayList<YearlyReportRecord> linesOfYear = new ArrayList<>();
-        FileReader reader =new FileReader();
+
     ArrayList<Integer> yearExpense = new ArrayList<>();
     ArrayList<Integer> yearProfit = new ArrayList<>();
     void readYearReport(){
-        String content = reader.readFileContentsOrNull("C:\\Users\\Ольга\\dev\\java-sprint2-hw/resources/y.2021.csv");
+        File f = new File("./");
+        String content = f.getAbsolutePath() + "/resources/y.2021.csv";
         String[] lines = content.split("\n");
         for(int i = 1; i < lines.length; i++){
             String line = lines[i];
@@ -24,7 +26,7 @@ public class YearReader {
             System.out.println("Годовой отчет еще не считан");
         }else{
             System.out.println("Отчет за 2021 год");
-            getStat();
+            yearStat();
         }
     }
     void checkExpenseOrProfit(){
@@ -36,8 +38,8 @@ public class YearReader {
             }
         }
 }
-void getStat(){
-    int clearProfit;
+void yearStat(){
+    int clearProfit = 0;
     int totalProfit = 0;
     int totalExpense = 0;
     for (int month = 0; month < yearExpense.size(); month++) {
