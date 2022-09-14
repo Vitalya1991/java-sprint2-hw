@@ -43,7 +43,7 @@ public class MonthReader {
         for (int monthIndex : totalMonth.keySet()) {
             int totalExpense = 0;
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
-                if (totalMonth.get(monthIndex).get(i).isExpense) {
+                if (totalMonth.get(monthIndex).get(i).isExpense == true) {
                     totalExpense += totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                 }
             }
@@ -55,7 +55,7 @@ public class MonthReader {
         for (int monthIndex : totalMonth.keySet()) {
             int totalProfit = 0;
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
-                if (totalMonth.get(monthIndex).get(i).isExpense) {
+                if (totalMonth.get(monthIndex).get(i).isExpense == false) {
                     totalProfit += totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                 }
             }
@@ -70,20 +70,22 @@ public class MonthReader {
             int mostExpenseItem = 0;
             String mostExpenseItemName = "";
             for (int i = 0; i < totalMonth.get(monthIndex).size(); i++) {
-                if (!totalMonth.get(monthIndex).get(i).isExpense) {
+                if (totalMonth.get(monthIndex).get(i).isExpense == false) {
                     int itemProfit = totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                     if (itemProfit > mostProfitItem) {
                         mostProfitItem = totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                         mostProfitItemName = totalMonth.get(monthIndex).get(i).itemName;
-                    } else if ((totalMonth.get(monthIndex).get(i).isExpense) && ((totalMonth.get(monthIndex).get(i).quantity) * (totalMonth.get(monthIndex).get(i).sumOfOne)) > mostExpenseItem) {
+                    }
+                }else if ((totalMonth.get(monthIndex).get(i).isExpense == true) && ((totalMonth.get(monthIndex).get(i).quantity) * (totalMonth.get(monthIndex).get(i).sumOfOne)) > mostExpenseItem) {
                         mostExpenseItem = totalMonth.get(monthIndex).get(i).quantity * totalMonth.get(monthIndex).get(i).sumOfOne;
                         mostExpenseItemName = totalMonth.get(monthIndex).get(i).itemName;
                     }
-                }
-                System.out.println("Месяц " + monthIndex);
-                System.out.println("Самая доходная позиция - " + mostProfitItemName + " Принесла общий доход в размере - " + mostProfitItem);
-                System.out.println("Самая затратная позиция - " + mostExpenseItemName + " Общие затраты в размере - " + mostExpenseItem);
+
+
             }
+            System.out.println("Месяц " + monthIndex);
+            System.out.println("Самая доходная позиция - " + mostProfitItemName + " Принесла общий доход в размере - " + mostProfitItem);
+            System.out.println("Самая затратная позиция - " + mostExpenseItemName + " Общие затраты в размере - " + mostExpenseItem);
         }
     }
 
