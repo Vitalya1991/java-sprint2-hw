@@ -8,7 +8,8 @@ public class YearReader {
     ArrayList<Integer> yearProfit = new ArrayList<>();
     void readYearReport(){
         File f = new File("./");
-        String content = f.getAbsolutePath() + "/resources/y.2021.csv";
+
+        String content = FileReader.readFileContentsOrNull(f.getAbsolutePath() + "/resources/y.2021.csv");
         String[] lines = content.split("\n");
         for(int i = 1; i < lines.length; i++){
             String line = lines[i];

@@ -8,12 +8,11 @@ public class MonthReader {
     ArrayList<Integer> profits = new ArrayList<>();
     HashMap<Integer, ArrayList<MonthlyReportRecord>> totalMonth = new HashMap<>();
 
-
     void readMonthReport() {
         File f = new File("./");
         System.out.println("cur dir: " + f.getAbsolutePath());
         for (int monthIndex = 1; monthIndex <= 3; monthIndex++) {
-            String content = f.getAbsolutePath() + "/resources/m.20210" + monthIndex + ".csv";
+            String content = FileReader.readFileContentsOrNull(f.getAbsolutePath() + "/resources/m.20210" + monthIndex + ".csv");
             String[] lines = content.split("\n");
             linesOfMonth = new ArrayList<>();
             for (int i = 1; i < lines.length; i++) {
